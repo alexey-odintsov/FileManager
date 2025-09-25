@@ -6,11 +6,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import com.alekso.filemanager.model.FileEntry
 
 @Composable
-fun FilesList(files: List<FileEntry>) {
+fun FilesList(files: SnapshotStateList<FileEntry>) {
     Column {
         val state = rememberLazyListState()
 

@@ -4,7 +4,7 @@ import com.alekso.filemanager.model.FileEntry
 import java.io.File
 
 class JVMFileProvider: FilesProvider {
-    override fun getFiles(directory: String): List<FileEntry> {
+    override suspend fun getFiles(directory: String): List<FileEntry> {
         val file = File(directory)
         if (file.exists()) {
             val files = file.listFiles()?.map { f ->

@@ -14,6 +14,6 @@ fun MainScreen() {
 
     Column {
         Text(platform.name)
-        FilesList(viewModel.currentDirectory.value)
+        FilesList(viewModel.currentDirectory)
     }
 }
