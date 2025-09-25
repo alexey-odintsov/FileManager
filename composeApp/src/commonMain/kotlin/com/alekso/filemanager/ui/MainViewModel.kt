@@ -1,6 +1,8 @@
 package com.alekso.filemanager.ui
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import com.alekso.filemanager.Platform
@@ -26,12 +28,15 @@ class MainViewModel(
         }
 
         override fun onFileSelected(fileEntry: FileEntry) {
-
+            _selectedFile.value = fileEntry
         }
 
     }
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(Main + viewModelJob)
+
+    private val _selectedFile = mutableStateOf<FileEntry?>(null)
+    val selectedFile: State<FileEntry?> = _selectedFile
 
     private val _currentDirectory = mutableStateListOf<FileEntry>()
     val currentDirectory: SnapshotStateList<FileEntry> = _currentDirectory

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
@@ -16,17 +17,21 @@ import org.jetbrains.compose.splitpane.rememberSplitPaneState
 
 @OptIn(ExperimentalSplitPaneApi::class)
 @Composable
-actual fun FilesPanels(currentDirectory: SnapshotStateList<FileEntry>, callbacks: FilesCallbacks) {
+actual fun FilesPanels(
+    currentDirectory: SnapshotStateList<FileEntry>,
+    selectedFile: FileEntry?,
+    callbacks: FilesCallbacks
+) {
     val splitterState = rememberSplitPaneState(0.5f)
 
     HorizontalSplitPane(
         splitPaneState = splitterState
     ) {
         first(20.dp) {
-            FilesList(currentDirectory, callbacks)
+            FilesList(currentDirectory, selectedFile, callbacks)
         }
         second(20.dp) {
-            FilesList(currentDirectory, callbacks)
+            Text(selectedFile.toString())
         }
         splitter {
             visiblePart {

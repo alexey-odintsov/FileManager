@@ -17,17 +17,21 @@ import org.jetbrains.compose.splitpane.rememberSplitPaneState
 
 @OptIn(ExperimentalSplitPaneApi::class)
 @Composable
-actual fun FilesPanels(currentDirectory: SnapshotStateList<FileEntry>, callbacks: FilesCallbacks) {
+actual fun FilesPanels(
+    currentDirectory: SnapshotStateList<FileEntry>,
+    selectedFile: FileEntry?,
+    callbacks: FilesCallbacks
+) {
     val splitterState = rememberSplitPaneState(0.7f)
 
     VerticalSplitPane(
         splitPaneState = splitterState
     ) {
         first(20.dp) {
-            FilesList(currentDirectory, callbacks)
+            FilesList(currentDirectory, selectedFile, callbacks)
         }
         second(20.dp) {
-            Text("File preview")
+            Text(selectedFile.toString())
         }
         splitter {
             visiblePart {

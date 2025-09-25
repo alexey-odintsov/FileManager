@@ -6,4 +6,8 @@ import com.alekso.filemanager.model.FileEntry
 
 
 @Composable
-expect fun FilesPanels(currentDirectory: SnapshotStateList<FileEntry>, callbacks: FilesCallbacks)
+expect fun FilesPanels(
+    currentDirectory: SnapshotStateList<FileEntry>,
+    selectedFile: FileEntry?,
+    callbacks: FilesCallbacks
+)
