@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import com.alekso.filemanager.model.FileEntry
 
 @Composable
-fun FilesList(files: SnapshotStateList<FileEntry>) {
+fun FilesList(files: SnapshotStateList<FileEntry>, callbacks: FilesCallbacks) {
     Column {
         val state = rememberLazyListState()
 
@@ -24,7 +24,7 @@ fun FilesList(files: SnapshotStateList<FileEntry>) {
                 key = { _, file -> file.path },
                 contentType = { _, _ -> FileEntry::class },
             ) { i, file ->
-                FileItem(file)
+                FileItem(i, file, false, callbacks)
             }
         }
     }

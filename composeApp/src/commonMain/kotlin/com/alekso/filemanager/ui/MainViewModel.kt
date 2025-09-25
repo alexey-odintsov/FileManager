@@ -16,8 +16,20 @@ import kotlinx.coroutines.withContext
 
 class MainViewModel(
     platform: Platform,
-    filesProvider: FilesProvider
+    private val filesProvider: FilesProvider
 ) : ViewModel() {
+    val callbacks = object : FilesCallbacks {
+        override fun onFileClicked(fileEntry: FileEntry) {
+            viewModelScope.launch(Dispatchers.IO) {
+                loadDirectory(fileEntry.path)
+            }
+        }
+
+        override fun onFileSelected(fileEntry: FileEntry) {
+
+        }
+
+    }
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(Main + viewModelJob)
 
@@ -26,12 +38,17 @@ class MainViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val initialDirectory = filesProvider.getFiles(platform.getHomeDirectory())
-
-            withContext(Main) {
-                _currentDirectory.clear()
-                _currentDirectory.addAll(initialDirectory)
-            }
+            loadDirectory(platform.getHomeDirectory())
         }
+    }
+
+    private suspend fun loadDirectory(path: String) {
+        val initialDirectory = filesProvider.getFiles(path)
+
+        withContext(Main) {
+            _currentDirectory.clear()
+            _currentDirectory.addAll(initialDirectory)
+        }
+
     }
 }

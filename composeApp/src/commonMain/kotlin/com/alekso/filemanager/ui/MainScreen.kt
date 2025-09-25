@@ -10,5 +10,5 @@ fun MainScreen() {
     val platform = remember { getPlatform() }
     val viewModel: MainViewModel = viewModel { MainViewModel(platform, platform.getFilesProvider()) }
 
-    FilesPanels(viewModel.currentDirectory)
+    FilesPanels(viewModel.currentDirectory, viewModel.callbacks)
 }

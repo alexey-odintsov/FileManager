@@ -4,5 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.alekso.filemanager.model.FileEntry
 
+
 @Composable
-expect fun FilesPanels(currentDirectory: SnapshotStateList<FileEntry>)
+expect fun FilesPanels(currentDirectory: SnapshotStateList<FileEntry>, callbacks: FilesCallbacks)

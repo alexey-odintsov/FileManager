@@ -5,5 +5,5 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.alekso.filemanager.model.FileEntry
 
 @Composable
-actual fun FilesPanels(currentDirectory: SnapshotStateList<FileEntry>) {
+actual fun FilesPanels(currentDirectory: SnapshotStateList<FileEntry>, callbacks: FilesCallbacks) {
 }
