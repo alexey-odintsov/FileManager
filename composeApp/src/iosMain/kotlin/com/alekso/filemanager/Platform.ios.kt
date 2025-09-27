@@ -5,10 +5,7 @@ import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
     override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
-    override fun getHomeDirectory(): String {
-        TODO("Not yet implemented")
-    }
-
+    override fun getHomeDirectory(): String = "~"
     override fun getFilesProvider(): FilesProvider = IOSFileProvider()
 }
 
