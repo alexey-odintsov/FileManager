@@ -20,18 +20,12 @@ class MainViewModel(
     platform: Platform,
     private val filesProvider: FilesProvider
 ) : ViewModel() {
+
     val callbacks = object : FilesCallbacks {
-        override fun onFileClicked(fileEntry: FileEntry) {
-            viewModelScope.launch(Dispatchers.IO) {
-                loadDirectory(fileEntry.path)
-            }
-        }
-
-        override fun onFileSelected(fileEntry: FileEntry) {
-            _selectedFile.value = fileEntry
-        }
-
+        override fun onFileClicked(fileEntry: FileEntry) = openDirectory(fileEntry)
+        override fun onFileSelected(fileEntry: FileEntry) = selectFile(fileEntry)
     }
+
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(Main + viewModelJob)
 
@@ -47,6 +41,20 @@ class MainViewModel(
         }
     }
 
+    private fun openDirectory(fileEntry: FileEntry) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (fileEntry.isDirectory) {
+                loadDirectory(fileEntry.path)
+            } else {
+                selectFile(fileEntry)
+            }
+        }
+    }
+
+    private fun selectFile(fileEntry: FileEntry) {
+        _selectedFile.value = fileEntry
+    }
+
     private suspend fun loadDirectory(path: String) {
         val initialDirectory = filesProvider.getFiles(path)
 
@@ -54,6 +62,6 @@ class MainViewModel(
             _currentDirectory.clear()
             _currentDirectory.addAll(initialDirectory)
         }
-
     }
+
 }
