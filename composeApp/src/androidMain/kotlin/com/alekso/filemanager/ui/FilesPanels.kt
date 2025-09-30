@@ -20,6 +20,7 @@ import org.jetbrains.compose.splitpane.rememberSplitPaneState
 actual fun FilesPanels(
     currentDirectory: SnapshotStateList<FileEntry>,
     selectedFile: FileEntry?,
+    selectedFileContent: String?,
     callbacks: FilesCallbacks
 ) {
     val splitterState = rememberSplitPaneState(0.7f)

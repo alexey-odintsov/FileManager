@@ -35,4 +35,8 @@ class AndroidFilesProvider: FilesProvider {
             return emptyList()
         }
     }
+
+    override suspend fun getFileContent(path: String): String {
+        TODO("Not yet implemented")
+    }
 }

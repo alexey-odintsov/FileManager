@@ -32,6 +32,9 @@ class MainViewModel(
     private val _selectedFile = mutableStateOf<FileEntry?>(null)
     val selectedFile: State<FileEntry?> = _selectedFile
 
+    private val _selectedFileContent = mutableStateOf<String?>(null)
+    val selectedFileContent: State<String?> = _selectedFileContent
+
     private val _currentDirectory = mutableStateListOf<FileEntry>()
     val currentDirectory: SnapshotStateList<FileEntry> = _currentDirectory
 
@@ -53,6 +56,13 @@ class MainViewModel(
 
     private fun selectFile(fileEntry: FileEntry) {
         _selectedFile.value = fileEntry
+        if (!fileEntry.isDirectory) {
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    loadFileContent(fileEntry.path)
+                }
+            }
+        }
     }
 
     private suspend fun loadDirectory(path: String) {
@@ -62,6 +72,11 @@ class MainViewModel(
             _currentDirectory.clear()
             _currentDirectory.addAll(initialDirectory)
         }
+    }
+
+    private suspend fun loadFileContent(path: String) {
+        println("loadFileContent($path)")
+        _selectedFileContent.value = filesProvider.getFileContent(path)
     }
 
 }

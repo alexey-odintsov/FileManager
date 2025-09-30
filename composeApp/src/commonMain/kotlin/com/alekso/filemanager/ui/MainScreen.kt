@@ -15,6 +15,7 @@ fun MainScreen() {
     FilesPanels(
         viewModel.currentDirectory,
         viewModel.selectedFile.value,
+        viewModel.selectedFileContent.value,
         viewModel.callbacks,
     )
 }

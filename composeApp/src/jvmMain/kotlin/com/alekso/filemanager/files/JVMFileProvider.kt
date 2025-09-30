@@ -35,4 +35,9 @@ class JVMFileProvider: FilesProvider {
             return emptyList()
         }
     }
+
+    override suspend fun getFileContent(path: String): String {
+        return File(path).readText()
+    }
+
 }

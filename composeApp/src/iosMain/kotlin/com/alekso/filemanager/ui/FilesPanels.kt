@@ -8,6 +8,7 @@ import com.alekso.filemanager.model.FileEntry
 actual fun FilesPanels(
     currentDirectory: SnapshotStateList<FileEntry>,
     selectedFile: FileEntry?,
+    selectedFileContent: String?,
     callbacks: FilesCallbacks
 ) {
 }

@@ -7,4 +7,8 @@ class IOSFileProvider: FilesProvider {
     override suspend fun getFiles(directory: String): List<FileEntry> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getFileContent(path: String): String {
+        TODO("Not yet implemented")
+    }
 }
