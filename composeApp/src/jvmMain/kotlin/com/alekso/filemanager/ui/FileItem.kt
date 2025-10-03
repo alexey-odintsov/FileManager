@@ -31,8 +31,7 @@ actual fun FileItem(i: Int, fileEntry: FileEntry, isSelected: Boolean, callbacks
     Row(
         Modifier.fillMaxWidth().background(bgColor)
             .combinedClickable(
-                onDoubleClick = { callbacks.onFileClicked(fileEntry) },
-                onClick = { callbacks.onFileSelected(fileEntry) }
+                onClick = { callbacks.onFileClicked(fileEntry) }
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {

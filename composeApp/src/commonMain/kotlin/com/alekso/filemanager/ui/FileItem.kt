@@ -5,7 +5,6 @@ import com.alekso.filemanager.model.FileEntry
 
 interface FilesCallbacks {
     fun onFileClicked(fileEntry: FileEntry)
-    fun onFileSelected(fileEntry: FileEntry)
 }
 
 @Composable

@@ -22,8 +22,7 @@ class MainViewModel(
 ) : ViewModel() {
 
     val callbacks = object : FilesCallbacks {
-        override fun onFileClicked(fileEntry: FileEntry) = openDirectory(fileEntry)
-        override fun onFileSelected(fileEntry: FileEntry) = selectFile(fileEntry)
+        override fun onFileClicked(fileEntry: FileEntry) = onFileClickedInternal(fileEntry)
     }
 
     private val viewModelJob = SupervisorJob()
@@ -51,6 +50,14 @@ class MainViewModel(
             } else {
                 selectFile(fileEntry)
             }
+        }
+    }
+
+    private fun onFileClickedInternal(fileEntry: FileEntry) {
+        if (_selectedFile.value == fileEntry && fileEntry.isDirectory) {
+            openDirectory(fileEntry)
+        } else {
+            selectFile(fileEntry)
         }
     }
 
